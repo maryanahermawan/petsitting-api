@@ -5,12 +5,13 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/render"
-	"github.com/jackc/pgx/v4/pgxpool"
+	"github.com/jackc/pgx/v5/pgxpool"
 	log "github.com/sirupsen/logrus"
-	"golang-starter/internal/config"
-	"golang-starter/internal/db"
-	"golang-starter/internal/server/web"
-	"golang-starter/lib/healthcheck"
+	"petsitting-api/internal/config"
+	"petsitting-api/internal/db"
+	"petsitting-api/internal/server/web"
+	"petsitting-api/lib/healthcheck"
+	"petsitting-api/lib/users"
 )
 
 func main() {
@@ -28,6 +29,7 @@ func main() {
 
 func setupRoutes(dbPool *pgxpool.Pool, ctx context.Context) chi.Router {
 	check, err := healthcheck.NewHealthCheck(dbPool, ctx)
+	users, err := users.NewUsers(dbPool, ctx)
 	if err != nil {
 		log.Fatalf("Failed to construct health check: %v", err)
 	}
@@ -38,6 +40,7 @@ func setupRoutes(dbPool *pgxpool.Pool, ctx context.Context) chi.Router {
 	r.Use(middleware.Recoverer)
 	r.Use(render.SetContentType(render.ContentTypeJSON))
 	r.Get("/v1/health", check.GetHealthCheckHandler())
-
+	r.Get("/v1/users", users.GetUsersHandler())
+	r.Post("/v1/users/createUser", users.PostUserHandler())
 	return r
 }

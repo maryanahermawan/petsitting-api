@@ -16,6 +16,6 @@ DATABASE_PASSWORD="password" go run cmd/migrate/main.go -direction=down
 
 ## Build and run app via Docker
 ```shell
-docker build . -f ./docker/Dockerfile -t golang-starter:latest
-docker run -p 8000:8000 golang-starter:latest
+docker build . -f ./docker/Dockerfile -t petsitting-api:latest
+docker run -p 8000:8000 petsitting-api:latest
 ```

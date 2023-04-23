@@ -15,7 +15,12 @@ func readDbConfig() DbConfig {
 	user := viper.Get("database.user")
 	password := viper.Get("database.password")
 
+	// host := "localhost"
+	// user := "maryanahermawan"
+	// password := "postgres"
+	// url := fmt.Sprintf("postgres://%s:%s@%s/%s?sslmode=disable", user, password, host, dbname)
 	url := fmt.Sprintf("postgres://%s:%s@%s/%s?sslmode=disable", user, password, host, dbname)
+
 
 	return DbConfig{
 		Url: url,

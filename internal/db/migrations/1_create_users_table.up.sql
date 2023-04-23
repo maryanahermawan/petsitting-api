@@ -1,3 +1,11 @@
+CREATE TYPE USER_TYPE AS ENUM ('PET_SITTER', 'PET_OWNER');
+
 CREATE TABLE IF NOT EXISTS users (
-    firstname VARCHAR(16)
+    ID INT GENERATED ALWAYS AS IDENTITY,
+    firstname VARCHAR(16),
+    lastname VARCHAR(16),   
+    email VARCHAR(50) NOT NULL UNIQUE,
+    phone text,
+    usertype USER_TYPE,
+    PRIMARY KEY(ID)
 );

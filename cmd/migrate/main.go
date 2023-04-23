@@ -6,7 +6,7 @@ import (
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	log "github.com/sirupsen/logrus"
-	"golang-starter/internal/config"
+	"petsitting-api/internal/config"
 )
 
 func main() {
